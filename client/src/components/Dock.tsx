@@ -9,6 +9,7 @@ import { Calendar } from '@/apps/Calendar';
 import { Notes } from '@/apps/Notes';
 import { Settings } from '@/apps/Settings';
 import { VirtualMachine } from '@/apps/VirtualMachine';
+import { Docker } from '@/apps/Docker';
 
 interface DockApp {
   id: string;
@@ -27,6 +28,7 @@ const dockApps: DockApp[] = [
   { id: 'notes', name: 'Notes', icon: '📝', component: <Notes /> },
   { id: 'settings', name: 'Settings', icon: '⚙️', component: <Settings /> },
   { id: 'vm', name: 'Virtual Machine', icon: '💻', component: <VirtualMachine /> },
+  { id: 'docker', name: 'Docker', icon: '🐳', component: <Docker /> },
 ];
 
 export const Dock: React.FC = () => {
