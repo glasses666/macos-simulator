@@ -33,3 +33,4 @@
 - [x] 开机引导界面（macOS 启动动画）
 - [x] 终端应用支持 SSH 连接到远程服务器
 - [x] 使用 Electron 将应用打包为 .exe 桌面程序
+- [x] 配置 GitHub Actions 自动构建跨平台安装包
