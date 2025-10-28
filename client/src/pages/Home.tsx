@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { WindowProvider, useWindows } from '@/contexts/WindowContext';
 import { Window } from '@/components/Window';
 import { Dock } from '@/components/Dock';
 import { MenuBar } from '@/components/MenuBar';
+import { BootScreen } from '@/components/BootScreen';
 
 const Desktop: React.FC = () => {
   const { windows } = useWindows();
@@ -30,9 +31,34 @@ const Desktop: React.FC = () => {
 };
 
 export default function Home() {
+  const [isBooting, setIsBooting] = useState(true);
+  const [showDesktop, setShowDesktop] = useState(false);
+
+  useEffect(() => {
+    // Check if user has already booted (use sessionStorage for per-session boot)
+    const hasBooted = sessionStorage.getItem('macos-booted');
+    if (hasBooted) {
+      setIsBooting(false);
+      setShowDesktop(true);
+    }
+  }, []);
+
+  const handleBootComplete = () => {
+    sessionStorage.setItem('macos-booted', 'true');
+    setIsBooting(false);
+    setTimeout(() => {
+      setShowDesktop(true);
+    }, 300);
+  };
+
   return (
-    <WindowProvider>
-      <Desktop />
-    </WindowProvider>
+    <>
+      {isBooting && <BootScreen onBootComplete={handleBootComplete} />}
+      {showDesktop && (
+        <WindowProvider>
+          <Desktop />
+        </WindowProvider>
+      )}
+    </>
   );
 }
